@@ -6,10 +6,6 @@ public class Target {
     private String displayIcon;
     private boolean isOccupied ;
 
-    public void target(){
-
-    }
-
     public String getDisplayIcon() {
         return displayIcon;
     }

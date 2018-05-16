@@ -39,20 +39,26 @@ public class Board {
     }
 
     public void computerMove() {
+        int computerRow = -1;
         int computerCol = (int) (Math.random() * 6);
-        for (int row = 6; row >= 0; row--) {
-            if (!gameBoard[row][computerCol].isOccupied()) {
-                gameBoard[row][computerCol].setDisplayIcon("O");
-                gameBoard[row][computerCol].setOccupied(true);
-                checkWin(row, computerCol, "O");
-                break;
+        while (computerRow == -1) {
+            for (int row = 6; row >= 0; row--) {
+                if (!gameBoard[row][computerCol].isOccupied()) {
+                    gameBoard[row][computerCol].setDisplayIcon("O");
+                    gameBoard[row][computerCol].setOccupied(true);
+                    checkWin(row, computerCol, "O");
+                    computerRow = row;
+                    break;
+                }
             }
         }
     }
 
+
     public void userMove() {
+
         int userCol = Main.reader.nextInt();
-        userCol = userCol -1;
+        userCol = userCol - 1;
         for (int row = 6; row >= 0; row--) {
             if (!gameBoard[row][userCol].isOccupied()) {
                 gameBoard[row][userCol].setDisplayIcon("X");
@@ -65,24 +71,22 @@ public class Board {
     }
 
     public void checkWin(int row, int col, String whoMoves) {
-
-
-        int iconCounter = 0;
-
-
+        int secondCounter = 0;
         for (int loopCol = 0; loopCol <= 6; loopCol++) {
             if (gameBoard[row][loopCol].getDisplayIcon().equals(whoMoves)) {
-                iconCounter++;
+                secondCounter++;
+                if (secondCounter >= 4) {
+                    setHasWon(true);
+                    System.out.println("Player " + whoMoves + " You won!");
+                }
             } else {
-                iconCounter = 0;
+                secondCounter = 0;
 
             }
         }
-        if (iconCounter >= 4) {
-            setHasWon(true);
-            System.out.println("Player "+whoMoves + " You won!");
-        }
 
+
+        int iconCounter = 0;
 
         for (int loopRow = 0; loopRow <= 6; loopRow++) {
             if (gameBoard[loopRow][col].getDisplayIcon().equals(whoMoves)) {
@@ -94,10 +98,12 @@ public class Board {
         }
         if (iconCounter >= 4) {
             setHasWon(true);
-            System.out.println("Player "+whoMoves + " You won!");
+            System.out.println("Player " + whoMoves + " You won!");
         }
 
+
     }
-
-
 }
+
+
+

@@ -11,7 +11,7 @@ public class Main {
         while (!board.isHasWon()) {
             board.computerMove();
             board.printBoard();
-            System.out.println("enter your column 1-7");
+            System.out.println("enter your column 0-7");
             board.userMove();
         }
         board.printBoard();
